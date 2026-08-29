@@ -1,13 +1,28 @@
+//this model detects 17 points--> 5 facial rest others
+
 let capture;
+let bodyPose;
+let poses = [];
+
+function preload(){
+    bodyPose = ml5.bodyPose(); // model preload hota hai
+}
 
 function setup(){
     createCanvas(800,500);
-    capture=createCapture(VIDEO);
+    capture = createCapture(VIDEO);
     capture.hide();
+    bodyPose.detectStart(capture, gotPoses); //detectStart se poses detection shuru ho raha hai
+}
+
+function gotPoses(results){ //callback poses array ko update kar raha hai aur console mein log kar raha hai
+    poses=results;
+    console.log(poses);
 }
 
 function draw(){
     image(capture,0,0,800,500);
+    // ab poses[] array mein detected keypoints milenge
 }
 
 /*
