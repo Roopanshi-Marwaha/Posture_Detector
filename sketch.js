@@ -25,16 +25,15 @@ function draw(){
     image(capture,0,0,800,500);
     // ab poses[] array mein detected keypoints milenge
 
-    // agar koi pose detect hui hai tabhi aage badho
     if(poses.length>0){
-        let nose=poses[0].nose; // pehle detected insaan ka nose
-        let noseX=nose.x;
-        let noseY=nose.y;
-        console.log(noseX, noseY);
-        // visually confirm karne ke liye ek circle bana do nose pe
-        fill(255,0,0);
-        noStroke();
-        circle(noseX,noseY,20);
+        let keypoints=poses[0].keypoints; // saare 17 points ka array
+        // har keypoint pe loop chalao
+        for(let i=0;i<keypoints.length;i++){
+            let point=keypoints[i];
+            fill(255,0,0);
+            noStroke();
+            circle(point.x,point.y,20);
+        }
     }
 }
 
@@ -162,4 +161,48 @@ background(200); // to set the background of the canvas
     rect(500,200,200,100);
     // 5. circle
     ellipse(600,300,100,100); //as width and height are equal so it will be a circle 
+*/
+
+
+/*
+//only for nose
+//this model detects 17 points--> 5 facial rest others
+
+let capture;
+let bodyPose;
+let poses = [];
+
+function preload(){
+    bodyPose = ml5.bodyPose(); // model preload hota hai
+}
+
+function setup(){
+    createCanvas(800,500);
+    capture = createCapture(VIDEO);
+    capture.size(800,500);
+    capture.hide();
+    bodyPose.detectStart(capture, gotPoses); //detectStart se poses detection shuru ho raha hai
+}
+
+function gotPoses(results){ //callback poses array ko update kar raha hai aur console mein log kar raha hai
+    poses=results;
+    console.log(poses);
+}
+
+function draw(){
+    image(capture,0,0,800,500);
+    // ab poses[] array mein detected keypoints milenge
+
+    // agar koi pose detect hui hai tabhi aage badho
+    if(poses.length>0){
+        let nose=poses[0].nose; // pehle detected insaan ka nose
+        let noseX=nose.x;
+        let noseY=nose.y;
+        console.log(noseX, noseY);
+        // visually confirm karne ke liye ek circle bana do nose pe
+        fill(255,0,0);
+        noStroke();
+        circle(noseX,noseY,20);
+    }
+}
 */
