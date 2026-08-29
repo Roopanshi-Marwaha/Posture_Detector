@@ -20,7 +20,8 @@ let skeletonConnections=[
 ];
 
 let actor_img;
-let specs,filter;
+let specs;
+let filter_cigar;
 
 // naam se keypoint dhoondne wala helper function (guessing avoid karne ke liye)
 function getKeypoint(keypoints, targetName){
@@ -45,6 +46,7 @@ function setup(){
 
     actor_img=loadImage('images/shahrukh.png');
     specs=loadImage('images/spects.png');
+    filter_cigar=loadImage('images/cigar.png');
 }
 
 function gotPoses(results){ //callback poses array ko update kar raha hai aur console mein log kar raha hai
@@ -80,7 +82,8 @@ function draw(){
             }
         }
 
-        image(specs,poses[0].nose.x-110, poses[0].nose.y-130,250,225); //adjusted accordingly
+        image(specs,poses[0].nose.x-120, poses[0].nose.y-130,250,225); //adjusted accordingly
+        image(filter_cigar,poses[0].nose.x-65, poses[0].nose.y+30,50,50);
     }
 }
 
