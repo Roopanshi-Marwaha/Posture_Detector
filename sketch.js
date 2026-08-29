@@ -11,6 +11,7 @@ function preload(){
 function setup(){
     createCanvas(800,500);
     capture = createCapture(VIDEO);
+    capture.size(800,500);
     capture.hide();
     bodyPose.detectStart(capture, gotPoses); //detectStart se poses detection shuru ho raha hai
 }
@@ -23,6 +24,18 @@ function gotPoses(results){ //callback poses array ko update kar raha hai aur co
 function draw(){
     image(capture,0,0,800,500);
     // ab poses[] array mein detected keypoints milenge
+
+    // agar koi pose detect hui hai tabhi aage badho
+    if(poses.length>0){
+        let nose=poses[0].nose; // pehle detected insaan ka nose
+        let noseX=nose.x;
+        let noseY=nose.y;
+        console.log(noseX, noseY);
+        // visually confirm karne ke liye ek circle bana do nose pe
+        fill(255,0,0);
+        noStroke();
+        circle(noseX,noseY,20);
+    }
 }
 
 /*
