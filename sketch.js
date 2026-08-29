@@ -5,9 +5,6 @@ let bodyPose;
 let poses = [];
 // manual skeleton connections
 let skeletonConnections=[
-    ['left_eye','right_eye'],
-    ['left_ear','left_eye'],
-    ['right_ear','right_eye'],
     ['left_shoulder','right_shoulder'],
     ['left_shoulder','left_elbow'],
     ['left_elbow','left_wrist'],
@@ -21,6 +18,9 @@ let skeletonConnections=[
     ['right_hip','right_knee'],
     ['right_knee','right_ankle']
 ];
+
+let actor_img;
+let specs,filter;
 
 // naam se keypoint dhoondne wala helper function (guessing avoid karne ke liye)
 function getKeypoint(keypoints, targetName){
@@ -42,6 +42,9 @@ function setup(){
     capture.size(800,500);
     capture.hide();
     bodyPose.detectStart(capture, gotPoses); //detectStart se poses detection shuru ho raha hai
+
+    actor_img=loadImage('images/shahrukh.png');
+    specs=loadImage('images/spects.png');
 }
 
 function gotPoses(results){ //callback poses array ko update kar raha hai aur console mein log kar raha hai
@@ -76,6 +79,8 @@ function draw(){
                 line(pointA.x, pointA.y, pointB.x, pointB.y);
             }
         }
+
+        image(specs,poses[0].nose.x-110, poses[0].nose.y-130,250,225); //adjusted accordingly
     }
 }
 
