@@ -3,6 +3,34 @@
 let capture;
 let bodyPose;
 let poses = [];
+// manual skeleton connections
+let skeletonConnections=[
+    ['left_eye','right_eye'],
+    ['left_ear','left_eye'],
+    ['right_ear','right_eye'],
+    ['left_shoulder','right_shoulder'],
+    ['left_shoulder','left_elbow'],
+    ['left_elbow','left_wrist'],
+    ['right_shoulder','right_elbow'],
+    ['right_elbow','right_wrist'],
+    ['left_shoulder','left_hip'],
+    ['right_shoulder','right_hip'],
+    ['left_hip','right_hip'],
+    ['left_hip','left_knee'],
+    ['left_knee','left_ankle'],
+    ['right_hip','right_knee'],
+    ['right_knee','right_ankle']
+];
+
+// naam se keypoint dhoondne wala helper function (guessing avoid karne ke liye)
+function getKeypoint(keypoints, targetName){
+    for(let i=0; i<keypoints.length; i++){
+        if(keypoints[i].name === targetName){
+            return keypoints[i];
+        }
+    }
+    return null;
+}
 
 function preload(){
     bodyPose = ml5.bodyPose(); // model preload hota hai
@@ -24,15 +52,29 @@ function gotPoses(results){ //callback poses array ko update kar raha hai aur co
 function draw(){
     image(capture,0,0,800,500);
     // ab poses[] array mein detected keypoints milenge
-
     if(poses.length>0){
         let keypoints=poses[0].keypoints; // saare 17 points ka array
+        console.log(JSON.stringify(keypoints)); 
+
         // har keypoint pe loop chalao
         for(let i=0;i<keypoints.length;i++){
             let point=keypoints[i];
             fill(255,0,0);
             noStroke();
             circle(point.x,point.y,20);
+        }
+
+        // manual skeleton connections se lines banao (keypoints array se naam dhoond ke)
+        stroke(255,255,0);
+        strokeWeight(3);
+
+        for(let i=0; i<skeletonConnections.length; i++){
+            let pointA=getKeypoint(keypoints, skeletonConnections[i][0]);
+            let pointB=getKeypoint(keypoints, skeletonConnections[i][1]);
+
+            if(pointA && pointB){
+                line(pointA.x, pointA.y, pointB.x, pointB.y);
+            }
         }
     }
 }
