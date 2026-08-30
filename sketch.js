@@ -44,9 +44,10 @@ function setup(){
     capture.hide();
     bodyPose.detectStart(capture, gotPoses); //detectStart se poses detection shuru ho raha hai
 
-    actor_img=loadImage('images/shahrukh.png');
-    specs=loadImage('images/spects.png');
-    filter_cigar=loadImage('images/cigar.png');
+    // actor_img=loadImage('images/shahrukh.png');
+    actor_img=loadImage('images/selena.png');
+    // specs=loadImage('images/spects.png');
+    // filter_cigar=loadImage('images/cigar.png');
 }
 
 function gotPoses(results){ //callback poses array ko update kar raha hai aur console mein log kar raha hai
@@ -82,8 +83,9 @@ function draw(){
             }
         }
 
-        image(specs,poses[0].nose.x-120, poses[0].nose.y-130,250,225); //adjusted accordingly
-        image(filter_cigar,poses[0].nose.x-65, poses[0].nose.y+30,50,50);
+        // image(specs,poses[0].nose.x-120, poses[0].nose.y-130,250,225); //adjusted accordingly
+        // image(filter_cigar,poses[0].nose.x-65, poses[0].nose.y+30,50,50);
+        image(actor_img,poses[0].nose.x-120,poses[0].nose.y-110,220,200);
     }
 }
 
