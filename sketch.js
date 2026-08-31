@@ -45,7 +45,7 @@ function setup(){
     bodyPose.detectStart(capture, gotPoses); //detectStart se poses detection shuru ho raha hai
 
     // actor_img=loadImage('images/shahrukh.png');
-    actor_img=loadImage('images/selena.png');
+    actor_img=loadImage('images/taylor.png');
     // specs=loadImage('images/spects.png');
     // filter_cigar=loadImage('images/cigar.png');
 }
